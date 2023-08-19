@@ -11,6 +11,8 @@ The Dockerfile derives from `debian:bookworm-slim` that installs a lighttpd webs
 
 The `entrypoint` shell script sets some initial log file permissions, routes the error log output to stdout and starts the server.
 
+The repository also contains an example `docker-compose.yml` file that can be used to start the container.
+
 ## Docker Image and Code Repository
 
 You can find a ready-to-use Docker image here:
@@ -19,9 +21,11 @@ https://hub.docker.com/r/fpod/lighttpd-docker-service
 
 It's a multi-platform built for various Linux architectures, so there is a good chance it will run on your machine.
 
-If not, you can build your own by downloading the necessary files from this GitHub Repository:
+If not, you can build your own after downloading the necessary files from the GitHub Repository:
 
-[to do]
+https://github.com/fpodschwadek/lighttpd
+
+Here you'll also find the example Docker Compose configuration file. I you want to run the container from this file, you should clone the complete repository.
 
 ## How Do I Turn This Thing On?
 
@@ -33,7 +37,7 @@ docker run fpod/lighttpd-docker-service
 
 If you run it as part of an application configured with Docker Compose, the minimal configuration to use is
 
-```bash
+```
 services:
   webserver:
     image: fpod/lighttpd-docker-service
@@ -41,14 +45,34 @@ services:
       - 80:80
 ```
 
-### Additional Configuration
-
-#### Log Files
-
-It's a good idea to mount the log files on your host so you can easily check what's (not) going on.
-
-
+You can also use the example `docker-compose.yml` file for more options. You can start the container with the example configuration by running
 
 ```bash
-docker build -t lighttpd-docker-service .
+docker compose --env-file .env.example up -d
 ```
+
+## Additional Configuration
+
+### Webserver Configuration
+
+You can mount configuration files into the container to add or override the configuration for the lighttpd webserver.
+
+The main configuration file in the container is `/etc/lighttpd/lighttpd.conf`. You can mount a file from your host to `/etc/lighttpd/lighttpd.conf` to override the default configuration.
+
+Most of the time this should not be needed. The provided configuration already loads `mod_indexfile`, `mod_access`, `mod_alias`, `mod_redirect`, `mod_dirlisting`, and `mod_staticfile`, is set up to accept the index file names "index.php", "index.html", "index.lighttpd.html", and runs the server as `www-data` in the container.
+
+You can provide additional configuration for your project by mounting a configuration file from your host to the container folder `/etc/lighttpd/conf-enabled/{ custom config file name}`. lighttpd includes all files from this folder, so you can mount several files or a hole host folder here if you want.
+
+### Document Root
+
+The default document root in the container is `/var/www/html`. You can mount a folder from your host to this folder to provide your own content. You can also configure lighttpd to use a different document root and mount your content there.
+
+### Log Files
+
+It's a good idea to mount the log files on your host so you can easily check what's (not) going on. 
+
+The lighttps log files are located in `/var/log/lighttpd` in the container. Mount a host folder here for easy debugging.
+
+## License
+
+All files in the repository are released under a BSD-3-Clause license, same as lighttpd itself.
