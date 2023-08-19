@@ -6,14 +6,14 @@ RUN apt update; \
     apt install -y \
        lighttpd \
     ; \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/*; \
 
     # Create log files and set permissions.
     mkdir -p /var/log/lighttpd; \
     chown -R www-data:www-data /var/log/lighttpd
-    
-# Add entrypoint script.
-COPY ./entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
 
-ENTRYPOINT /bin/bash /entrypoint.sh
+# Add entrypoint script.
+COPY ./entrypoint.sh /usr/bin/entrypoint
+RUN chmod +x /usr/bin/entrypoint
+
+ENTRYPOINT /bin/bash entrypoint
