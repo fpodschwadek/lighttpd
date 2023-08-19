@@ -7,7 +7,7 @@ contexts I'm working in. One reason is often the container needs to run multiple
 
 ## What’s in It?
 
-The Dockerfile derives from `debian:bookworm-slim` that installs a lighttpd webserver with the APT (so it might not be the most recent version) and sets up the necessary log files.
+The Dockerfile derives from `debian:bookworm-slim` that installs a lighttpd webserver with the APT (so it might not be the most recent version, currently it's 1.4.69) and sets up the necessary log files.
 
 The `entrypoint` shell script sets some initial log file permissions, routes the error log output to stdout and starts the server.
 
