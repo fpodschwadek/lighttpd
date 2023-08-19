@@ -16,7 +16,11 @@ RUN apt update; \
     mkdir -p /var/log/lighttpd; \
     touch /var/log/lighttpd/error.log; \
     touch /var/log/lighttpd/access.log; \
-    chown -R www-data:www-data /var/log/lighttpd
+    chown -R www-data:www-data /var/log/lighttpd; \
+
+    # Remove default enabled config, which is only re-defining allowed
+    # index file names.
+    rm /etc/lighttpd/conf-enabled/99-unconfigured.conf
 
 # Add entrypoint script.
 COPY ./entrypoint.sh /usr/bin/entrypoint
