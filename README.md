@@ -59,9 +59,9 @@ You can mount configuration files into the container to add or override the conf
 
 The main configuration file in the container is `/etc/lighttpd/lighttpd.conf`. You can mount a file from your host to `/etc/lighttpd/lighttpd.conf` to override the default configuration.
 
-Most of the time this should not be needed. The provided configuration already loads `mod_indexfile`, `mod_access`, `mod_alias`, `mod_redirect`, `mod_dirlisting`, and `mod_staticfile`, is set up to accept the index file names "index.php", "index.html", "index.lighttpd.html", and runs the server as `www-data` in the container.
+Most of the time this should not be needed. The provided configuration already loads `mod_indexfile`, `mod_access`, `mod_alias`, `mod_redirect`, `mod_dirlisting`, and `mod_staticfile`, is set up to accept the index file names `index.php` and `index.html`, and runs the server as `www-data` in the container.
 
-You can provide additional configuration for your project by mounting a configuration file from your host to the container folder `/etc/lighttpd/conf-enabled/{ custom config file name}`. lighttpd includes all files from this folder, so you can mount several files or a hole host folder here if you want.
+You can provide additional configuration for your project by mounting a configuration file from your host to the container folder `/etc/lighttpd/conf-enabled/{ custom config file name }`. lighttpd includes all files from this folder, so you can mount several files or a hole host folder here if you want.
 
 ### Document Root
 
