@@ -1,4 +1,4 @@
-# docker build -t lighttpd-docker-service .
+# docker build -t fpod/lighttpd-docker-service .
 FROM debian:bookworm-slim
 
 # Install lighttpd
