@@ -1,13 +1,13 @@
 # lighttpd Docker Service
 
-A [lighttp](https://www.lighttpd.net/) webserver running on [Debian 12 ('bookworm')](https://www.debian.org/releases/stable/), supposed to be used for a service container in a multicontainer setup. It will also work fine on its own.
+A [lighttp](https://www.lighttpd.net/) webserver running on [Debian 12 ('bookworm')](https://www.debian.org/releases/stable/), supposed to be used for a service container in a multi-container setup. It will also work fine on its own.
 
 It's build on top of Debian linux because that's what I needed for most
-contexts I'm working in. One reason is often the container needs to run multiple services, e.g., a webserver for outward communication and an SSH server for inward communication with other containers of the same application. (Yes, I'm aware of the whole Docker/VM discussion, and no, I don't care.)
+contexts I'm working in. One reason is that often the same container needs to run multiple services, e.g., a webserver for outward communication and an SSH server for inward communication with other containers of the same application. You don't get that with available Alpine variants. (Yes, I'm aware of the whole Docker/VM discussion, and no, I don't care.)
 
 ## What’s in It?
 
-The Dockerfile derives from `debian:bookworm-slim` that installs a lighttpd webserver with the APT (so it might not be the most recent version, currently it's 1.4.69) and sets up the necessary log files.
+The Dockerfile derives from `debian:bookworm-slim` and installs a lighttpd webserver with the APT (so it might not be the most recent version, currently it's 1.4.69) and sets up the necessary log files.
 
 The `entrypoint` shell script sets some initial log file permissions, routes the error log output to stdout and starts the server.
 
