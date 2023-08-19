@@ -1,5 +1,12 @@
+version: "3.9"
+
 services:
   webserver:
-    image: fpod/lighttpd-docker-service
+    container_name: ${CONTAINER_NAME}
+    image: ${IMAGE}
     ports:
-      - 80:80
+      - ${PORTS_HOST_HTTP}:80
+      - ${PORTS_HOST_HTTPS}:443
+    volumes:
+      - ${VOLUMES_DOCUMENT_ROOT_HOST}:${VOLUMES_DOCUMENT_ROOT_CONTAINER}
+      - ${VOLUMES_LOG_HOST}:${VOLUMES_LOG_CONTAINER}
