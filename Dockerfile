@@ -1,4 +1,8 @@
-# docker build -t fpod/lighttpd-docker-service .
+# The available image was built with:
+#
+# docker buildx build --platform=linux/amd64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7 -t fpod/lighttpd-docker-service .
+#
+# If you want to build for a different architecture, you'll have to modifiy the command accordingly (or just use docker build).
 FROM debian:bookworm-slim
 
 # Install lighttpd
@@ -10,6 +14,8 @@ RUN apt update; \
 
     # Create log files and set permissions.
     mkdir -p /var/log/lighttpd; \
+    touch /var/log/lighttpd/error.log; \
+    touch /var/log/lighttpd/access.log; \
     chown -R www-data:www-data /var/log/lighttpd
 
 # Add entrypoint script.
