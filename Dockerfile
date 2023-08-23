@@ -26,4 +26,4 @@ RUN apt update; \
 COPY ./entrypoint.sh /usr/bin/entrypoint
 RUN chmod +x /usr/bin/entrypoint
 
-ENTRYPOINT /bin/bash entrypoint
+ENTRYPOINT ["/bin/bash", "-c",  "entrypoint"]
